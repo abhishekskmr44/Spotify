@@ -1,3 +1,6 @@
+// importing speacial redux toolkit functions;
+
+import { useDispatch, useSelector } from "react-redux";
 import {Error, Loader, SongCard} from "../components";
 import { useGetTopChartsQuery } from "../redux/services/shazamCore"; 
 import {genres} from "../assets/constants";
@@ -5,6 +8,13 @@ import {genres} from "../assets/constants";
 
 
 const Discover = () => {
+
+    const dispatch =  useDispatch();
+
+    // useselctor will give us vanilla or chocolate part of the cake
+    const {activeSong, isPlaying} = useSelector((state)=>state.player)
+
+
   const { data, isFetching, error} = useGetTopChartsQuery();
 
     const genreTitle = "Pop";
@@ -39,7 +49,10 @@ const Discover = () => {
             <SongCard
             key={song.key}
             song={song}
+            isPlaying={isPlaying}
+            activeSong={activeSong}
             i={i}
+            data={data}
             />
     ))}
          </div>
